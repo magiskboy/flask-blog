@@ -1,0 +1,7 @@
+db.sqlite3
+requirements-test.txt
+README.md
+.git
+.gitignore
+app/static/main/profile_pics/*
+!app/static/main/profile_pics/default.jpg

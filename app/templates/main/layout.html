@@ -7,7 +7,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link rel="stylesheet" href="{{ url_for('static', filename='main.css')  }}" type="text/css" media="screen" title="no title" charset="utf-8">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+        <link rel="stylesheet" href="{{ url_for('static', filename='main/main.css')  }}" type="text/css" media="screen" title="no title" charset="utf-8">
 
         {% if title %}
         <title>Flask Blog - {{ title  }}</title>
@@ -25,18 +26,18 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarToggle">
                         <div class="navbar-nav mr-auto">
-                            <a class="nav-item nav-link" href="{{ url_for('home')  }}">Home</a>
-                            <a class="nav-item nav-link" href="{{ url_for('about')  }}">About</a>
+                            <a class="nav-item nav-link" href="{{ url_for('main.home')  }}">Home</a>
+                            <a class="nav-item nav-link" href="{{ url_for('main.about')  }}">About</a>
                         </div>
                         <!-- Navbar Right Side -->
                         <div class="navbar-nav">
                             {% if current_user.is_authenticated %}
-                                <a class="nav-item nav-link" href="{{ url_for('new_post') }}">New Post</a>
-                                <a class="nav-item nav-link" href="{{ url_for('account') }}">Account</a>
-                                <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
+                                <a class="nav-item nav-link" href="{{ url_for('main.new_post') }}">New Post</a>
+                                <a class="nav-item nav-link" href="{{ url_for('main.account') }}">Account</a>
+                                <a class="nav-item nav-link" href="{{ url_for('main.logout') }}">Logout</a>
                             {% else %}
-                                <a class="nav-item nav-link" href="{{ url_for('login')  }}">Login</a>
-                                <a class="nav-item nav-link" href="{{ url_for('register')  }}">Register</a>
+                                <a class="nav-item nav-link" href="{{ url_for('main.login')  }}">Login</a>
+                                <a class="nav-item nav-link" href="{{ url_for('main.register')  }}">Register</a>
                             {% endif %}
                         </div>
                     </div>

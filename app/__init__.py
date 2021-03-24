@@ -1,19 +1,23 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from flask_bcrypt import Bcrypt
-from flask_login import LoginManager
 
-app = Flask(__name__)
-app.secret_key = 'bd137a24b315b08b08a8c23760ec31d6'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
-db = SQLAlchemy(app)
-bcrypt = Bcrypt(app)
-login_manager = LoginManager(app)
-login_manager.login_view = 'login'
-login_manager.login_message_category = 'info'
+from .security import login_manager
+from .models import db
+from .config import get_config
+from .main import bp as main_bp
+from .oauth2 import bp as oauth2_bp
 
-from app import routes
 
+def create_app(config_name):
+    app = Flask(__name__)
+    app.config.from_object(get_config(config_name))
+
+    login_manager.init_app(app)
+    db.init_app(app)
+
+    app.register_blueprint(main_bp, url_prefix='/')
+    app.register_blueprint(oauth2_bp, url_prefix='/oauth2')
+
+    return app
 
 
 

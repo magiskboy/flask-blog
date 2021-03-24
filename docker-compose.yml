@@ -1,0 +1,40 @@
+version: "3.7"
+
+services:
+  webapp:
+    build: .
+    environment:
+      - SQLALCHEMY_DATABASE_URI=mysql+pymysql://root:password@mysql:3306/app
+      - FLASK_ENV=production
+      - GOOGLE_CLIENT_ID=
+      - GOOGLE_CLIENT_SECRET=
+      - FACEBOOK_CLIENT_ID=
+      - FACEBOOK_CLIENT_SECRET=
+    ports:
+      - 5000:5000
+    depends_on:
+      - migration
+    restart: on-failure
+    networks:
+      - mynet
+  migration:
+    build: .
+    environment:
+      - SQLALCHEMY_DATABASE_URI=mysql+pymysql://root:password@mysql:3306/app
+    depends_on:
+      - mysql
+    restart: on-failure
+    networks:
+      - mynet
+  mysql:
+    image: mysql:8.0.18
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=app
+    expose:
+      - 3306
+    restart: on-failure
+    networks:
+      - mynet
+networks:
+  mynet:
