@@ -206,7 +206,7 @@ def delete_post(post_id):
         abort(403)
     post.delete()
     flash('Your post has been deleted!', 'success')
-    return redirect(url_for('home'))
+    return redirect(url_for('main.home'))
 
 
 @bp.route('/post/user/<string:user>', methods=['GET'])

@@ -5,8 +5,8 @@ from app.models import User
 
 login_manager = LoginManager()
 
-login_manager.login_view = 'login'
-login_manager.login_message_category = 'info'
+login_manager.login_view = 'main.login'
+login_manager.login_message_category = 'success'
 
 
 @login_manager.user_loader
