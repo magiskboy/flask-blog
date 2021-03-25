@@ -34,10 +34,10 @@ class BaseModel:
 class User(BaseModel, UserMixin, db.Model):
     __tablename__ = 'users'
 
-    name = sa.Column(sa.String(50), nullable=False)
-    email = sa.Column(sa.String(20), unique=True, nullable=False)
-    image_file = sa.Column(sa.String(20), nullable=False, default='default.jpg')
-    hash_password = sa.Column(sa.String(60), nullable=False)
+    name = sa.Column(sa.String(100), nullable=False)
+    email = sa.Column(sa.String(400), unique=True, nullable=False)
+    image_file = sa.Column(sa.String(500), nullable=False, default='default.jpg')
+    hash_password = sa.Column(sa.String(128), nullable=False)
     verify_on_google = sa.Column(sa.Boolean(), default=False)
     verify_on_facebook = sa.Column(sa.Boolean(), default=False)
 
@@ -62,7 +62,7 @@ class User(BaseModel, UserMixin, db.Model):
 class Post(BaseModel, db.Model):
     __tablename__ = 'posts'
 
-    title = sa.Column(sa.String(20), nullable=False)
+    title = sa.Column(sa.String(50), nullable=False)
     content = sa.Column(sa.String(5000), nullable=False)
     author_id = sa.Column(sa.Integer(), sa.ForeignKey('users.id'), nullable=False)
     author = sa.orm.relationship(User, backref='posts')
