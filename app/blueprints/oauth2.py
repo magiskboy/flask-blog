@@ -8,11 +8,11 @@ from flask import (
     flash,
 )
 from flask_login import login_user
-from .oauth2_client import (
+from ..oauth2_client import (
     GoogleOAuth2Client,
     FacebookOAuth2Client,
 )
-from .models import User
+from ..models import User
 
 
 bp = Blueprint('oauth2', __name__)

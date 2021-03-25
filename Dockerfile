@@ -25,6 +25,6 @@ ADD . .
 
 EXPOSE 5000
 
-ENTRYPOINT env/bin/gunicorn -c gunicorn.config.py wsgi:app
+ENTRYPOINT env/bin/gunicorn -c gunicorn.config.py wsgi:main
 
 CMD /bin/sh

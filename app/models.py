@@ -72,3 +72,14 @@ class Post(BaseModel, db.Model):
 
     def __str__(self):
         return self.title
+
+
+class Comment(BaseModel, db.Model):
+    __tablename__ = 'comments'
+
+    content = sa.Column(sa.String(200), nullable=False)
+    post_id = sa.Column(sa.Integer(), sa.ForeignKey('posts.id'), nullable=False)
+    user_id = sa.Column(sa.Integer(), sa.ForeignKey('users.id'), nullable=False)
+
+    post = sa.orm.relationship(Post, backref='comments')
+    user = sa.orm.relationship(User)

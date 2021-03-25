@@ -3,8 +3,8 @@ from flask import Flask
 from .security import login_manager
 from .models import db
 from .config import get_config
-from .main import bp as main_bp
-from .oauth2 import bp as oauth2_bp
+from .blueprints.main import bp as main_bp
+from .blueprints.oauth2 import bp as oauth2_bp
 
 
 def create_app(config_name):

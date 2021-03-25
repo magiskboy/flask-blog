@@ -18,6 +18,18 @@
         </div>
     </article>
 
+    <div class="comment-list ml-3 border">
+        {% for comment in post.comments %}
+            <div class="media p-3">
+                <img src="{{ url_for('static', filename='main/profile_pics/'+comment.user.image_file) }}" alt="{{ comment.user.name }}" class="mr-3 rounded-circle comment-img" >
+                <div class="media-body">
+                  <a href="#" style="font-size:15px;">{{ comment.user.name }}</a> <small style="font-size:11px;"><i>{{comment.created_at.strftime('%Y-%m-%d')}}</i></small>
+                  <p>{{ comment.content }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
 <!-- Modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">

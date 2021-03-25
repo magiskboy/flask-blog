@@ -18,14 +18,15 @@ from flask_login import (
     current_user,
     login_required,
 )
+from sqlalchemy.orm import joinedload
 
-from .forms import (
+from ..forms import (
     LoginForm,
     RegistrationForm,
     UpdateAccountForm,
     PostForm,
 )
-from .models import (
+from ..models import (
     User,
     Post,
 )
@@ -163,7 +164,7 @@ def new_post():
 @bp.route('/post/<int:post_id>')
 def post(post_id):
     template = 'main/post.html'
-    post = Post.query.get_or_404(post_id)
+    post = Post.query.options(joinedload('comments')).get_or_404(post_id)
     context = {
         'title': post.title,
         'post': post,
