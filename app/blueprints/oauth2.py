@@ -50,10 +50,11 @@ def google_callback():
     email = userinfo.get('email')
     user = User.query.filter_by(email=email).first()
     if not user:
-        flash('You need to register this email before login')
+        flash('You need to register this email before login', 'danger')
         return redirect(url_for('main.register'))
 
     login_user(user)
+    flash(f'Login with {email}', 'success')
     return redirect(url_for('main.home'))
 
 
@@ -69,8 +70,9 @@ def facebook_callback():
     email = userinfo.get('email')
     user = User.query.filter_by(email=email).first()
     if not user:
-        flash('You need to register this email before login')
+        flash('You need to register this email before login', 'danger')
         return redirect(url_for('main.register'))
 
     login_user(user)
+    flash(f'Login with {email}', 'success')
     return redirect(url_for('main.home'))
