@@ -23,7 +23,7 @@ COPY --from=build-image /app/env ./env
 
 ADD . .
 
-EXPOSE 80
+EXPOSE 5000
 
 ENTRYPOINT env/bin/gunicorn -c gunicorn.config.py wsgi:main
 
