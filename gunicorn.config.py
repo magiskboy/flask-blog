@@ -1,4 +1,3 @@
-import os
 import multiprocessing as mp
 
 bind = '0.0.0.0:5000'
@@ -6,10 +5,6 @@ bind = '0.0.0.0:5000'
 backlog = 2048
 
 workers = mp.cpu_count() * 2
-
-WEB_CONCURRENT = os.getenv('WEB_CONCURRENT')
-if WEB_CONCURRENT:
-    workers = int(WEB_CONCURRENT)
 
 worker_class = 'gevent'
 
