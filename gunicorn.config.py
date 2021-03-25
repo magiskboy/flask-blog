@@ -1,6 +1,6 @@
 import multiprocessing as mp
 
-bind = '0.0.0.0:5000'
+bind = '0.0.0.0:80'
 
 backlog = 2048
 
