@@ -15,64 +15,64 @@ from ..oauth2_client import (
 from ..models import User
 
 
-bp = Blueprint('oauth2', __name__)
+bp = Blueprint("oauth2", __name__)
 
 
-@bp.route('/google')
+@bp.route("/google")
 def login_with_google():
     request_uri = GoogleOAuth2Client.get_grant_request_url(
-        client_id=current_app.config['GOOGLE_CLIENT_ID'],
-        redirect_uri=url_for('oauth2.google_callback', _external=True),
-        scope=['openid', 'email', 'profile']
+        client_id=current_app.config["GOOGLE_CLIENT_ID"],
+        redirect_uri=url_for("oauth2.google_callback", _external=True),
+        scope=["openid", "email", "profile"],
     )
     return redirect(request_uri)
 
 
-@bp.route('/facebook')
+@bp.route("/facebook")
 def login_with_facebook():
     request_uri = FacebookOAuth2Client.get_grant_request_url(
-        client_id=current_app.config['FACEBOOK_CLIENT_ID'],
-        redirect_uri=url_for('oauth2.facebook_callback', _external=True),
-        scope=['email']
+        client_id=current_app.config["FACEBOOK_CLIENT_ID"],
+        redirect_uri=url_for("oauth2.facebook_callback", _external=True),
+        scope=["email"],
     )
     return redirect(request_uri)
 
 
-@bp.route('/callback/google')
+@bp.route("/callback/google")
 def google_callback():
-    code = request.args.get('code', type=str)
+    code = request.args.get("code", type=str)
     userinfo = GoogleOAuth2Client.get_userinfo(
-        client_id=current_app.config['GOOGLE_CLIENT_ID'],
-        client_secret=current_app.config['GOOGLE_CLIENT_SECRET'],
+        client_id=current_app.config["GOOGLE_CLIENT_ID"],
+        client_secret=current_app.config["GOOGLE_CLIENT_SECRET"],
         code=code,
         authorization_response=request.url,
     )
-    email = userinfo.get('email')
+    email = userinfo.get("email")
     user = User.query.filter_by(email=email).first()
     if not user:
-        flash('You need to register this email before login', 'danger')
-        return redirect(url_for('main.register'))
+        flash("You need to register this email before login", "danger")
+        return redirect(url_for("main.register"))
 
     login_user(user)
-    flash(f'Login with {email}', 'success')
-    return redirect(url_for('main.home'))
+    flash(f"Login with {email}", "success")
+    return redirect(url_for("main.home"))
 
 
-@bp.route('/callback/facebook')
+@bp.route("/callback/facebook")
 def facebook_callback():
-    code = request.args.get('code', type=str)
+    code = request.args.get("code", type=str)
     userinfo = FacebookOAuth2Client.get_userinfo(
-        client_id=current_app.config['FACEBOOK_CLIENT_ID'],
-        client_secret=current_app.config['FACEBOOK_CLIENT_SECRET'],
+        client_id=current_app.config["FACEBOOK_CLIENT_ID"],
+        client_secret=current_app.config["FACEBOOK_CLIENT_SECRET"],
         code=code,
         authorization_response=request.url,
     )
-    email = userinfo.get('email')
+    email = userinfo.get("email")
     user = User.query.filter_by(email=email).first()
     if not user:
-        flash('You need to register this email before login', 'danger')
-        return redirect(url_for('main.register'))
+        flash("You need to register this email before login", "danger")
+        return redirect(url_for("main.register"))
 
     login_user(user)
-    flash(f'Login with {email}', 'success')
-    return redirect(url_for('main.home'))
+    flash(f"Login with {email}", "success")
+    return redirect(url_for("main.home"))

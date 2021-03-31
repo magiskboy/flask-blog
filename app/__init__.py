@@ -14,49 +14,7 @@ def create_app(config_name):
     login_manager.init_app(app)
     db.init_app(app)
 
-    app.register_blueprint(main_bp, url_prefix='/')
-    app.register_blueprint(oauth2_bp, url_prefix='/oauth2')
+    app.register_blueprint(main_bp, url_prefix="/")
+    app.register_blueprint(oauth2_bp, url_prefix="/oauth2")
 
     return app
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

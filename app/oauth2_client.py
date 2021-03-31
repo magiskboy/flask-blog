@@ -15,7 +15,9 @@ class OAuth2Client:
     authorization_endpoint = None
 
     @classmethod
-    def get_grant_request_url(cls, client_id, redirect_uri, scope=None, state=None):
+    def get_grant_request_url(
+        cls, client_id, redirect_uri, scope=None, state=None
+    ):
         oauth_client = WebApplicationClient(client_id)
         request_uri = oauth_client.prepare_request_uri(
             cls.authorization_endpoint,
@@ -27,10 +29,14 @@ class OAuth2Client:
         return request_uri
 
     @classmethod
-    def get_userinfo(cls, client_id, client_secret, code, authorization_response):
+    def get_userinfo(
+        cls, client_id, client_secret, code, authorization_response
+    ):
         client = WebApplicationClient(client_id)
 
-        base_url = authorization_response.replace('?'+urlparse(authorization_response).query, '')
+        base_url = authorization_response.replace(
+            "?" + urlparse(authorization_response).query, ""
+        )
 
         # get access token
         token_url, headers, body = client.prepare_token_request(
@@ -56,16 +62,16 @@ class OAuth2Client:
 
 
 class GoogleOAuth2Client(OAuth2Client):
-    token_endpoint = 'https://oauth2.googleapis.com/token'
+    token_endpoint = "https://oauth2.googleapis.com/token"
 
-    userinfo_endpoint = 'https://openidconnect.googleapis.com/v1/userinfo'
+    userinfo_endpoint = "https://openidconnect.googleapis.com/v1/userinfo"
 
-    authorization_endpoint = 'https://accounts.google.com/o/oauth2/v2/auth'
+    authorization_endpoint = "https://accounts.google.com/o/oauth2/v2/auth"
 
 
 class FacebookOAuth2Client(OAuth2Client):
-    token_endpoint = 'https://graph.facebook.com/v10.0/oauth/access_token'
+    token_endpoint = "https://graph.facebook.com/v10.0/oauth/access_token"
 
-    userinfo_endpoint = 'https://graph.facebook.com/v10.0/me?fields=name,email'
+    userinfo_endpoint = "https://graph.facebook.com/v10.0/me?fields=name,email"
 
-    authorization_endpoint = 'https://www.facebook.com/v10.0/dialog/oauth'
+    authorization_endpoint = "https://www.facebook.com/v10.0/dialog/oauth"
