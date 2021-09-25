@@ -10,6 +10,7 @@ services:
       - GOOGLE_CLIENT_SECRET=
       - FACEBOOK_CLIENT_ID=
       - FACEBOOK_CLIENT_SECRET=
+      - OAUTHLIB_INSECURE_TRANSPORT=1
     ports:
       - 5000:5000
     depends_on:
@@ -19,8 +20,10 @@ services:
       - mynet
   migration:
     build: .
+    entrypoint: env/bin/flask db upgrade
     environment:
       - SQLALCHEMY_DATABASE_URI=mysql+pymysql://root:password@mysql:3306/app
+      - FLASK_APP=wsgi:main
     depends_on:
       - mysql
     restart: on-failure
